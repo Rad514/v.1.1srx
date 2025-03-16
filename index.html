@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Симулятор открытия смены в 1С:ERP</title> 
+    <link rel="stylesheet" href="dark-theme.css"> 
+</head> 
+<body> 
+    <h2>Открытие смены в 1С:ERP</h2> 
+    <form id="shiftForm"> 
+        <label for="shiftNumber">Номер смены:</label> 
+        <input type="text" id="shiftNumber" placeholder="например: 2023-10-01-1" required> 
+
+        <label for="date">Дата:</label> 
+        <input type="date" id="date" required> 
+
+        <label for="time">Время открытия:</label> 
+        <input type="time" id="time" required> 
+
+        <label for="department">Отдел:</label> 
+        <select id="department" required> 
+            <option value="розлива">Отдел розлива</option> 
+            <option value="производства">Отдел производства</option> 
+            <option value="упаковки">Отдел упаковки</option> 
+        </select> 
+
+        <label for="equipment">Оборудование:</label> 
+        <input type="text" id="equipment" placeholder="Введите название оборудования" required> 
+
+        <label for="responsible">Ответственное лицо:</label> 
+        <input type="text" id="responsible" placeholder="Введите имя или код работника" required> 
+
+        <label for="productionPlan">План по производству:</label> 
+        <input type="number" id="productionPlan" placeholder="Количество продукции" required> 
+
+        <label for="comments">Замечания и комментарии:</label> 
+        <textarea id="comments" rows="4" placeholder="Введите ваши замечания"></textarea> 
+
+        <button type="submit">Открыть смену</button> 
+    </form> 
+
+    <script src="script.js"></script> 
+</body>
+</html>
