@@ -1,45 +1,61 @@
 <!doctype html>
 <html lang="ru"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Симулятор открытия смены</title> 
-    <link rel="stylesheet" href="dark-theme.css"> 
-</head> 
-<body> 
-    <h2>Открытие смены</h2> 
-    <form id="shiftForm"> 
-        <label for="shiftNumber">Номер смены:</label> 
-        <input type="text" id="shiftNumber" placeholder="например: 2023-10-01-1" required> 
+ <head> 
+   <meta charset="UTF-8"> 
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+       <title>Планирование смен на месяц</title> 
+        </head> 
+         <body> 
+           <h2>Планирование смен на месяц</h2> <label for="month">Выберите месяц:</label> 
+             <input type="month" id="month" required> 
+               <div id="shiftsContainer"></div> <button id="addShift">Добавить смену</button> <button id="submitPlan">Сохранить план смен</button> 
+                 <script>
+                     const shiftsContainer = document.getElementById('shiftsContainer');
+                         
+                             document.getElementById('addShift').addEventListener('click', function() {
+                                   const shiftDiv = document.createElement('div');
+                                         shiftDiv.innerHTML = `
+                                                 <label>Номер смены:</label>
+                                                         <input type="text" required>
+                                                                 <label>Дата:</label>
+                                                                         <input type="date" required>
+                                                                                 <label>Время открытия:</label>
+                                                                                         <input type="time" required>
+                                                                                                 <label>Отдел:</label>
+                                                                                                         <select required>
+                                                                                                                   <option value="розлива">Отдел розлива</option>
+                                                                                                                             <option value="производства">Отдел производства</option>
+                                                                                                                                       <option value="упаковки">Отдел упаковки</option>
+                                                                                                                                               </select>
+                                                                                                                                                       <label>Оборудование:</label>
+                                                                                                                                                               <input type="text" required>
+                                                                                                                                                                       <button class="removeShift">Удалить смену</button>
+                                                                                                                                                                             `;
+                                                                                                                                                                                   shiftsContainer.appendChild(shiftDiv);
+                                                                                                                                                                                       });
 
-        <label for="date">Дата:</label> 
-        <input type="date" id="date" required> 
+                                                                                                                                                                                           shiftsContainer.addEventListener('click', function(event) {
+                                                                                                                                                                                                 if (event.target.classList.contains('removeShift')) {
+                                                                                                                                                                                                         event.target.parentNode.remove();
+                                                                                                                                                                                                               }
+                                                                                                                                                                                                                   });
 
-        <label for="time">Время открытия:</label> 
-        <input type="time" id="time" required> 
-
-        <label for="department">Отдел:</label> 
-        <select id="department" required> 
-            <option value="розлива">Отдел розлива</option> 
-            <option value="производства">Отдел производства</option> 
-            <option value="упаковки">Отдел упаковки</option> 
-        </select> 
-
-        <label for="equipment">Оборудование:</label> 
-        <input type="text" id="equipment" placeholder="Введите название оборудования" required> 
-
-        <label for="responsible">Ответственное лицо:</label> 
-        <input type="text" id="responsible" placeholder="Введите имя или код работника" required> 
-
-        <label for="productionPlan">План по производству:</label> 
-        <input type="number" id="productionPlan" placeholder="Количество продукции" required> 
-
-        <label for="comments">Замечания и комментарии:</label> 
-        <textarea id="comments" rows="4" placeholder="Введите ваши замечания"></textarea> 
-
-        <button type="submit">Открыть смену</button> 
-    </form> 
-
-    <script src="script.js"></script> 
-</body>
-</html>
+                                                                                                                                                                                                                       document.getElementById('submitPlan').addEventListener('click', function() {
+                                                                                                                                                                                                                             const shifts = [];
+                                                                                                                                                                                                                                   const shiftDivs = shiftsContainer.children;
+                                                                                                                                                                                                                                         for (let div of shiftDivs) {
+                                                                                                                                                                                                                                                 const shiftData = {
+                                                                                                                                                                                                                                                           shiftNumber: div.querySelector('input[type="text"]').value,
+                                                                                                                                                                                                                                                                     date: div.querySelector('input[type="date"]').value,
+                                                                                                                                                                                                                                                                               time: div.querySelector('input[type="time"]').value,
+                                                                                                                                                                                                                                                                                         department: div.querySelector('select').value,
+                                                                                                                                                                                                                                                                                                   equipment: div.querySelector('input[type="text"]').value,
+                                                                                                                                                                                                                                                                                                           };
+                                                                                                                                                                                                                                                                                                                   shifts.push(shiftData);
+                                                                                                                                                                                                                                                                                                                         }
+                                                                                                                                                                                                                                                                                                                               console.log('План смен:', shifts);
+                                                                                                                                                                                                                                                                                                                                     alert('План смен успешно сохранен! Проверьте консоль для деталей.');
+                                                                                                                                                                                                                                                                                                                                         });
+                                                                                                                                                                                                                                                                                                                                           </script> 
+                                                                                                                                                                                                                                                                                                                                            </body>
+                                                                                                                                                                                                                                                                                                                                            </html>
