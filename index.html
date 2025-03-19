@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>График работы rum</title> 
+  <style>
+        input::placeholder {
+            color: #aaa; /* Цвет подсказки */
+            opacity: 1; /* Полупрозрачность */
+        }
+        .date-label {
+            margin-right: 5px; /* Отступ справа для меток */
+        }
+    </style> 
+ </head> 
+ <body> 
+  <h2>Планирование смен</h2> 
+  <h3>График на месяц</h3> <label for="month">Выберите месяц:</label> 
+  <input type="month" id="month" required> 
+  <div id="shiftsContainer"></div> <button id="addShift">Добавить смену</button> <button id="submitPlan">Сохранить</button> 
+  <p> <a href="https://docs.google.com/spreadsheets/d/1MirQWN2rgM6UnISRWrlg0b1bV5fFtV--26gzQGt2qOM/edit?usp=drivesdk" target="_blank">Открыть график на месяц</a> </p> 
+  <h3>График на неделю</h3> <label for="startDate">Период:</label> <span class="date-label">С:</span> 
+  <input type="date" id="startDate" required> <span class="date-label">По:</span> 
+  <input type="date" id="endDate" required> 
+  <div id="weeklyShiftsContainer"></div> <button id="addWeeklyShift">Добавить смену</button> <button id="submitWeeklyPlan">Сохранить</button> 
+  <p> <a href="https://docs.google.com/spreadsheets/d/1Qh9mBme0ckqdFpNEv0K6E4wVgTFP1TcX/edit?usp=drivesdk" target="_blank">Недельный график</a> </p> 
+  <script>
+        const shiftsContainer = document.getElementById('shiftsContainer');
+        const weeklyShiftsContainer = document.getElementById('weeklyShiftsContainer');
+
+        function addShift(container) {
+            const shiftDiv = document.createElement('div');
+            shiftDiv.innerHTML = `
+                <label>Номер смены:</label>
+                <input type="text" required>
+                <label>Дата:</label>
+                <input type="date" required>
+                <label>Время открытия:</label>
+                <input type="time" required>
+                <label>Отдел:</label>
+                <select required>
+                    <option value="розлива">Отдел розлива</option>
+                    <option value="производства">Отдел производства</option>
+                    <option value="упаковки">Отдел упаковки</option>
+                </select>
+                <label>Оборудование:</label>
+                <input type="text" required>
+                <button class="removeShift">Удалить смену</button>
+            `;
+            container.appendChild(shiftDiv);
+
+            // Добавляем обработчик для кнопки "Удалить смену"
+            shiftDiv.querySelector('.removeShift').addEventListener('click', function() {
+                container.removeChild(shiftDiv);
+            });
+        }
+
+        document.getElementById('addShift').addEventListener('click', function() {
+            addShift(shiftsContainer);
+        });
+
+        document.getElementById('addWeeklyShift').addEventListener('click', function() {
+            addShift(weeklyShiftsContainer);
+        });
+    </script> 
+ </body>
+</html>
